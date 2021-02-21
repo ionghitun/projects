@@ -10,5 +10,5 @@ services:
             context: ./
             dockerfile: php-node/Dockerfile
         volumes:
-            - ./:/var/www
+            - ./:/home/${USER}
         restart: unless-stopped

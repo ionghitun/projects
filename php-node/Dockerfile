@@ -3,11 +3,11 @@ FROM php:8.0-fpm
 ARG USER
 ARG USERID
 
-RUN useradd -G www-data,root -u ${USERID} -d /home/${USER} ${USER}
+RUN useradd -G www-data -u ${USERID} -d /home/${USER} ${USER}
 RUN mkdir -p /home/${USER} && \
     chown -R ${USER}:${USER} /home/${USER}
 
-WORKDIR /var/www
+WORKDIR /home/${USER}
 
 RUN apt-get update && apt-get install -y vim git zip unzip zlib1g-dev libicu-dev g++ libxml2-dev
 
