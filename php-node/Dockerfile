@@ -1,15 +1,8 @@
 FROM php:8.0-fpm
 
-ARG USER
-ARG USERID
+WORKDIR /var/www
 
-RUN useradd -G www-data -u ${USERID} -d /home/${USER} ${USER}
-RUN mkdir -p /home/${USER} && \
-    chown -R ${USER}:${USER} /home/${USER}
-
-WORKDIR /home/${USER}
-
-RUN apt-get update && apt-get install -y vim git zip unzip zlib1g-dev libicu-dev g++ libxml2-dev
+RUN apt-get update && apt-get install -y acl vim git zip unzip zlib1g-dev libicu-dev g++ libxml2-dev
 
 RUN export EDITOR="/usr/bin/vim"
 
@@ -26,4 +19,5 @@ RUN docker-php-ext-enable redis
 RUN curl -sL https://deb.nodesource.com/setup_current.x | bash -
 RUN apt-get install -y nodejs
 
-USER ${USER}
+RUN chown -R www-data:www-data /var/www
+RUN setfacl -dRm u:www-data:rwx /var/www

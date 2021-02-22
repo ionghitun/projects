@@ -1,14 +1,10 @@
 version: '3'
 services:
     php-node:
-        user: "${USER}:www-data"
         container_name: php-node
         build:
-            args:
-                USER: ${USER}
-                USERID: ${USERID}
             context: ./
             dockerfile: php-node/Dockerfile
         volumes:
-            - ./:/home/${USER}
+            - ./:/var/www
         restart: unless-stopped
