@@ -5,3 +5,4 @@
 !.dockerignore
 !LICENSE
 !README.md
+!.env.example
