@@ -11,4 +11,6 @@ services:
             dockerfile: php-node/Dockerfile
         volumes:
             - ./:/var/www
+        tmpfs:
+            - /dev/shm
         restart: unless-stopped

@@ -33,6 +33,8 @@ RUN apt-get install -y nodejs
 
 ADD ./php-node/supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN python -c "import socket as s; sock = s.socket(s.AF_UNIX); sock.bind('/dev/shm/supervisor.sock')"
+
 USER ${USER}
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
