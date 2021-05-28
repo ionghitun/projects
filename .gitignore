@@ -1,8 +1,7 @@
 /*
-!php-node
+!default-php
 !.gitignore
 !docker-compose.yml
 !.dockerignore
 !LICENSE
 !README.md
-!.env.example

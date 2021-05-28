@@ -1,2 +1,2 @@
-# php-node
-Default container for docker with php and node
+# default-php
+Simple PHP container

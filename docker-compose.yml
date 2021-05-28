@@ -1,14 +1,10 @@
 version: '3'
 services:
-    php-node:
-        user: "${USER}:www-data"
-        container_name: php-node
+    default-php:
+        container_name: default-php
         build:
-            args:
-                USER: ${USER}
-                USERID: ${USERID}
             context: ./
-            dockerfile: php-node/Dockerfile
+            dockerfile: default-php/Dockerfile
         volumes:
             - ./:/var/www
         tmpfs:
