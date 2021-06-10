@@ -1,6 +1,7 @@
 /*
 !default-php
 !.gitignore
+!.env.example
 !docker-compose.yml
 !.dockerignore
 !LICENSE
