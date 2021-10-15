@@ -1,5 +1,5 @@
 /*
-!default-php
+!php-node
 !.gitignore
 !.env.example
 !docker-compose.yml

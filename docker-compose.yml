@@ -1,16 +1,16 @@
 version: '3'
 services:
-    default-php:
-        user: ${USER_ID}:${GROUP_ID}
-        container_name: default-php
-        build:
-            context: ./
-            dockerfile: default-php/Dockerfile
-            args:
-                USER_ID: ${USER_ID}
-                GROUP_ID: ${GROUP_ID}
-        volumes:
-            - ./:/var/www
-        tmpfs:
-            - /dev/shm
-        restart: unless-stopped
+  php-node:
+    container_name: php-node
+    restart: unless-stopped
+    user: ${USER_ID}:${GROUP_ID}
+    build:
+      context: ./
+      dockerfile: php-node/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    volumes:
+      - ./:/var/www
+    tmpfs:
+      - /dev/shm
