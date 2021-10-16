@@ -31,6 +31,8 @@ RUN docker-php-ext-enable redis
 RUN curl -sL https://deb.nodesource.com/setup_current.x | bash -
 RUN apt-get install -y nodejs
 
+ADD ./php-node/php/php.ini /usr/local/etc/php/conf.d/php.ini
+
 ADD ./php-node/supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN python -c "import socket as s; sock = s.socket(s.AF_UNIX); sock.bind('/dev/shm/supervisor.sock')"
