@@ -21,6 +21,7 @@ Doing so, you don't have to install anything on your distribution and redoing it
 ### Additional info
 
 - to go inside container from console: `docker exec -it <container-name> bash`
-- ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app` will be added to `www-data:www-data` user and group inside container, but they will match ID and GROUP ID of the user and group that owns project folder.
+- ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app` will be added to `www-data:www-data` user and group inside
+  container, but they will match ID and GROUP ID of the user and group that owns project folder.
 
 _Happy Coding_
