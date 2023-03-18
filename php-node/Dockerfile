@@ -1,5 +1,5 @@
 #version
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 
 #shell setup
 SHELL [ "/bin/bash", "-l", "-c" ]
