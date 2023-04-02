@@ -1,9 +1,6 @@
 #version
 FROM php:8.1-fpm
 
-#shell setup
-SHELL [ "/bin/bash", "-l", "-c" ]
-
 #configure everything as root
 USER root
 
@@ -26,8 +23,10 @@ RUN touch /var/run/supervisord.pid
 RUN chown -R www-data:www-data /var/run
 RUN chown www-data:www-data /var/run/supervisord.pid
 
+RUN apt-get update && apt-get upgrade -y
+
 #install some necesarry libraries
-RUN apt-get update && apt-get install -y nano git curl zip unzip zlib1g-dev libicu-dev g++ libxml2-dev supervisor
+RUN apt-get install -y nano git curl zip unzip zlib1g-dev libicu-dev g++ libxml2-dev supervisor
 
 #default editor
 RUN export EDITOR="/usr/bin/nano"
@@ -36,12 +35,11 @@ RUN export EDITOR="/usr/bin/nano"
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #install and configure some extensions
-RUN docker-php-ext-install intl exif pcntl bcmath soap
-RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl && docker-php-ext-configure intl
+RUN docker-php-ext-install exif pcntl bcmath soap
 
 #install redis
-RUN pecl install redis
-RUN docker-php-ext-enable redis
+RUN pecl install redis && docker-php-ext-enable redis
 
 #install latest stable node version
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -

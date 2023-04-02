@@ -1,18 +1,18 @@
 version: '3.9'
 services:
-  php-node:
-    container_name: ${CONTAINER_NAME}
-    restart: unless-stopped
-    user: ${USER_ID}:${GROUP_ID}
-    build:
-      context: ./
-      dockerfile: php-node/Dockerfile
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
-    volumes:
-      - ./:/var/www
-      - ./php-node/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ./php-node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-    tmpfs:
-      - /dev/shm
+    php-node:
+        container_name: ${CONTAINER_NAME}
+        restart: unless-stopped
+        user: ${USER_ID}:${GROUP_ID}
+        build:
+            context: ./
+            dockerfile: php-node/Dockerfile
+            args:
+                USER_ID: ${USER_ID}
+                GROUP_ID: ${GROUP_ID}
+        volumes:
+            - ./:/var/www
+            - ./php-node/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./php-node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+        tmpfs:
+            - /dev/shm
