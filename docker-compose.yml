@@ -16,3 +16,5 @@ services:
             - ./php-node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         tmpfs:
             - /dev/shm
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
