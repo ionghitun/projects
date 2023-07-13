@@ -2,7 +2,7 @@ version: '3.9'
 services:
     php-node:
         container_name: ${CONTAINER_NAME}
-        restart: unless-stopped
+        restart: always
         user: ${USER_ID}:${GROUP_ID}
         build:
             context: ./

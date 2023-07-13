@@ -1,5 +1,5 @@
 #version
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 #configure everything as root
 USER root

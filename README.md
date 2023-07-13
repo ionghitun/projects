@@ -1,6 +1,6 @@
 # Projects
 
-Simple docker container that includes php 8.1 and latest lts node version
+Simple docker container that includes php 8.2 and latest lts node version
 
 ## Introduction
 
@@ -15,7 +15,7 @@ Doing so, you don't have to install anything on your distribution and redoing it
 ### Notes
 
 - Clone it inside user home directory of your distribution of choice.
-- Assign `folder` to user and user group (DO NOT USE root).
+- Assign `projects` (cloned directory) to user and user group (DO NOT USE root).
 - Copy `.env.example` to `.env` and use `id -u <user>` `id -g <group>` to populate fields.
 - Add or change variables inside `php.ini` and `supervisord.conf` if needed.
 - build container using `docker-compose up -d`
@@ -25,6 +25,6 @@ Doing so, you don't have to install anything on your distribution and redoing it
 - to go inside container from console: `docker exec -it <container-name> bash`
 - ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app`
   will be added to `www-data:www-data` user and group inside
-  container, but they will match ID and GROUP ID of the user and group that owns project folder.
+  container, but they will match ID and GROUP ID of the user and group that owns project folder, and you can edit them from outside wsl using any editor.
 
 _Happy Coding_
