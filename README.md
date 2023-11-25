@@ -1,30 +1,26 @@
 # Projects
 
-Simple docker container that includes php 8.2 and latest lts node version
+Simple container with php and node where you can create new projects with same user and group as host
 
 ## Introduction
 
-This is meant to be used for PHP and NODE development with docker and wsl on windows operating systems, and can be
+This is meant to be used for PHP and NODE projects development with docker on linux or windows wsl, and can be
 installed inside any distribution.
 
-This project needs to be cloned inside your distribution, in user directory and set user and group as owner of the
-folder.
+### Install Notes
 
-Doing so, you don't have to install anything on your distribution and redoing it at any point will be easy.
-
-### Notes
-
-- Clone it inside user home directory of your distribution of choice.
-- Assign `projects` (cloned directory) to user and user group (DO NOT USE root).
-- Copy `.env.example` to `.env` and use `id -u <user>` `id -g <group>` to populate fields.
-- Add or change variables inside `php.ini` and `supervisord.conf` if needed.
+- clone it
+- assign `projects` (cloned directory) to user and user group (DO NOT USE root).
+- copy `.env.example` to `.env` and use `id -u <user>` `id -g <group>` to populate some of the fields.
+- change `PHP_BASE_IMAGE`, `NODE_VERSION` and `CONTAINER_NAME` to your needs
+- add or change variables inside `php.ini` and `supervisord.conf` if needed.
 - build container using `docker-compose up -d`
 
 ### Additional info
 
-- to go inside container from console: `docker exec -it <container-name> bash`
+- to go inside container from console: `docker exec -it CONTAINER_NAME bash`
 - ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app`
   will be added to `www-data:www-data` user and group inside
-  container, but they will match ID and GROUP ID of the user and group that owns project folder, and you can edit them from outside wsl using any editor.
+  container, but they will match USER ID and GROUP ID of the user and group that owns project folder.
 
 _Happy Coding_

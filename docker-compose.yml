@@ -6,14 +6,16 @@ services:
         user: ${USER_ID}:${GROUP_ID}
         build:
             context: ./
-            dockerfile: php-node/Dockerfile
+            dockerfile: docker/Dockerfile
             args:
+                PHP_BASE_IMAGE: ${PHP_BASE_IMAGE}
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
+                NODE_VERSION: ${NODE_VERSION}
         volumes:
             - ./:/var/www
-            - ./php-node/php.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./php-node/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+            - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         tmpfs:
             - /dev/shm
         extra_hosts:
