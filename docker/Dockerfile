@@ -40,7 +40,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #install and configure some extensions
 RUN docker-php-ext-install intl && docker-php-ext-configure intl
 RUN pecl install redis && docker-php-ext-enable redis
-RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN pecl install imagick && docker-php-ext-enable imagick
 RUN docker-php-ext-install gd && docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install zip exif pcntl bcmath soap pdo_mysql sockets gettext
