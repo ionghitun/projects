@@ -28,7 +28,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 #install some necesarry libraries
-RUN apt-get install -y default-mysql-client nano git curl cron zip unzip zlib1g-dev libicu-dev g++ libxml2-dev supervisor libmcrypt-dev libzip-dev libmagickwand-dev imagemagick
+RUN apt-get install -y supervisor git zip unzip
 RUN pecl update-channels
 
 #default editor
@@ -36,13 +36,6 @@ RUN export EDITOR="/usr/bin/nano"
 
 #composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-#install and configure some extensions
-RUN docker-php-ext-install intl && docker-php-ext-configure intl
-RUN pecl install redis && docker-php-ext-enable redis
-RUN pecl install imagick && docker-php-ext-enable imagick
-RUN docker-php-ext-install gd && docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install zip exif pcntl bcmath soap pdo_mysql sockets gettext
 
 #install node
 ARG NODE_VERSION
