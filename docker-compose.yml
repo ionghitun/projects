@@ -1,8 +1,8 @@
 services:
     projects:
         container_name: ${CONTAINER_NAME}
-        restart: unless-stopped
         user: ${USER_ID}:${GROUP_ID}
+        restart: unless-stopped
         build:
             context: ./
             dockerfile: docker/Dockerfile

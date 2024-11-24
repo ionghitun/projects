@@ -1,13 +1,13 @@
 #version
-ARG PHP_BASE_IMAGE
+ARG PHP_BASE_IMAGE=php:8.3-fpm
 FROM ${PHP_BASE_IMAGE}
 
 #configure everything as root
 USER root
 
 #make owner www-data and match it to host and group ids so permissions match outside container
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 RUN userdel -f www-data
 RUN if getent group www-data ; then groupdel www-data; fi
 RUN groupadd -g ${GROUP_ID} www-data
@@ -38,7 +38,7 @@ RUN export EDITOR="/usr/bin/nano"
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #install node
-ARG NODE_VERSION
+ARG NODE_VERSION=22
 RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh
 RUN chmod 500 nsolid_setup_deb.sh
 RUN ./nsolid_setup_deb.sh ${NODE_VERSION}
