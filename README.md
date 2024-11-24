@@ -11,8 +11,8 @@ installed inside any distribution.
 
 - clone it
 - assign `projects` (cloned directory) to user and user group (DO NOT USE root).
-- copy `.env.example` to `.env` and use `id -u <user>` `id -g <group>` to populate some of the fields.
-- change `PHP_BASE_IMAGE`, `NODE_VERSION` and `CONTAINER_NAME` to your needs
+- copy `.env.example` to `.env` and use `id -u <user>` and `id -g <user>` to populate some of the fields.
+- change other env variables to your needs
 - add or change variables inside `php.ini` and `supervisord.conf` if needed.
 - build container using `docker-compose up -d`
 
