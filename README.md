@@ -18,6 +18,7 @@ installed inside any distribution.
 
 ### Additional info
 
+- added laravel installer
 - to go inside container from console: `docker exec -it CONTAINER_NAME bash`
 - ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app`
   will be added to `www-data:www-data` user and group inside

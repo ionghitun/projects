@@ -1,5 +1,5 @@
 #version
-ARG PHP_BASE_IMAGE=php:8.3-fpm
+ARG PHP_BASE_IMAGE=php:8.4-fpm
 FROM ${PHP_BASE_IMAGE}
 
 #configure everything as root
@@ -28,7 +28,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 #install some necesarry libraries
-RUN apt-get install -y supervisor git zip unzip
+RUN apt-get install -y supervisor git zip unzip nano
 RUN pecl update-channels
 
 #default editor
@@ -50,6 +50,10 @@ RUN python3 -c "import socket as s; sock = s.socket(s.AF_UNIX); sock.bind('/dev/
 
 #set user back to www-data
 USER www-data
+
+#laravel installer
+RUN composer global require laravel/installer
+RUN echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
 
 #set supervisor to run to keep php-fpm up and running
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
