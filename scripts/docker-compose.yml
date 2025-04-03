@@ -1,20 +1,20 @@
 services:
     projects:
-        container_name: ${CONTAINER_NAME}
+        container_name: ${STACK_NAME}
         user: ${USER_ID}:${GROUP_ID}
         restart: unless-stopped
         build:
-            context: ./
-            dockerfile: docker/Dockerfile
+            context: ../
+            dockerfile: scripts/php/Dockerfile
             args:
-                PHP_BASE_IMAGE: ${PHP_BASE_IMAGE}
+                PHP_IMAGE_VERSION: ${PHP_IMAGE_VERSION}
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
                 NODE_VERSION: ${NODE_VERSION}
         volumes:
-            - ./:/var/www
-            - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+            - ../:/var/www
+            - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         tmpfs:
             - /dev/shm
         extra_hosts:

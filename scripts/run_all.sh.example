@@ -1,0 +1,18 @@
+echo "Script started"
+cd ./nginx-proxy
+docker compose up -d
+docker compose restart
+
+cd ../minio
+docker compose up -d
+docker compose restart
+
+cd ../mailpit
+docker compose up -d
+docker compose restart
+
+cd ../portainer
+docker compose up -d
+docker compose restart
+
+echo "Script ended"

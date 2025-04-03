@@ -1,6 +1,6 @@
 #version
-ARG PHP_BASE_IMAGE=php:8.4-fpm
-FROM ${PHP_BASE_IMAGE}
+ARG PHP_IMAGE_VERSION=php:8.4-fpm
+FROM ${PHP_IMAGE_VERSION}
 
 #configure everything as root
 USER root

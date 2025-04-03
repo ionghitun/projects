@@ -1,9 +1,7 @@
 /*
-!/docker
-!.dockerignore
-!.editorconfig
-!.env.example
+!/scripts
+!/scripts/.gitignore
 !.gitignore
-!docker-compose.yml
+!.editorconfig
 !LICENSE
 !README.md

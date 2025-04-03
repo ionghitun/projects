@@ -11,16 +11,21 @@ installed inside any distribution.
 
 - clone it
 - assign `projects` (cloned directory) to user and user group (DO NOT USE root).
-- copy `.env.example` to `.env` and use `id -u <user>` and `id -g <user>` to populate some of the fields.
+- copy `scripts/.env.example` to `scripts/.env` and use `id -u <user>` and `id -g <user>` to populate some of the fields.
 - change other env variables to your needs
-- add or change variables inside `php.ini` and `supervisord.conf` if needed.
-- build container using `docker-compose up -d`
+- add or change variables inside `scripts/php/php.ini` and `scripts/php/supervisord.conf` if needed.
+- run `sh scripts/local/start.sh` to start the project
+- run `sh scripts/local/stop.sh` to stop the project
+- run `sh scripts/local/build.sh` to build or rebuild the project
+- run `sh scripts/local/restart.sh` to restarts container
+- run `sh scripts/local/console.sh` to exec the container
 
 ### Additional info
 
+- copy `scripts/run_all.sh.example` to `scripts/run_all.sh` and modify it to your needs, then by running `sh scripts/run_all.sh` you can start all your other projects in one
+  command
 - added laravel installer
-- to go inside container from console: `docker exec -it CONTAINER_NAME bash`
-- ANY folders or files created inside container from commands like `composer create-project` or `npx create-react-app`
+- ANY folders or files created inside container from commands like `laravel new laravel`, `composer create-project` or `npx create-react-app`
   will be added to `www-data:www-data` user and group inside
   container, but they will match USER ID and GROUP ID of the user and group that owns project folder.
 
