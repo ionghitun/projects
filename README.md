@@ -14,11 +14,11 @@ installed inside any distribution.
 - copy `scripts/.env.example` to `scripts/.env` and use `id -u <user>` and `id -g <user>` to populate some of the fields.
 - change other env variables to your needs
 - add or change variables inside `scripts/php/php.ini` and `scripts/php/supervisord.conf` if needed.
-- run `sh scripts/local/start.sh` to start the project
-- run `sh scripts/local/stop.sh` to stop the project
-- run `sh scripts/local/build.sh` to build or rebuild the project
-- run `sh scripts/local/restart.sh` to restarts container
-- run `sh scripts/local/console.sh` to exec the container
+- run `sh scripts/start.sh` to start the project
+- run `sh scripts/stop.sh` to stop the project
+- run `sh scripts/build.sh` to build or rebuild the project
+- run `sh scripts/restart.sh` to restarts container
+- run `sh scripts/console.sh` to exec the container
 
 ### Additional info
 

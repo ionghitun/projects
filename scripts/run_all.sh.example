@@ -1,18 +1,18 @@
 echo "Script started"
 cd ./nginx-proxy
-docker compose up -d
-docker compose restart
+sh scripts/start.sh
+sh scripts/restart.sh
 
 cd ../minio
-docker compose up -d
-docker compose restart
+sh scripts/start.sh
+sh scripts/restart.sh
 
 cd ../mailpit
-docker compose up -d
-docker compose restart
+sh scripts/start.sh
+sh scripts/restart.sh
 
 cd ../portainer
-docker compose up -d
-docker compose restart
+sh scripts/start.sh
+sh scripts/restart.sh
 
 echo "Script ended"
