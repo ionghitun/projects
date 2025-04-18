@@ -2,6 +2,7 @@
 !/scripts
 !/scripts/.gitignore
 !.gitignore
+!.dockerignore
 !.editorconfig
 !LICENSE
 !README.md
