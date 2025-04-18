@@ -1,4 +1,7 @@
-echo "Script started"
+echo
+echo "===== Script started ====="
+echo
+
 cd ./nginx-proxy
 sh scripts/start.sh
 sh scripts/restart.sh
@@ -15,4 +18,6 @@ cd ../portainer
 sh scripts/start.sh
 sh scripts/restart.sh
 
-echo "Script ended"
+echo
+echo "===== Done! ====="
+echo

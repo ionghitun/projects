@@ -1,32 +1,65 @@
-# Projects
+# Docker PHP & Node Development Environment
 
-Simple container with php and node where you can create new projects with same user and group as host
+A simple Docker-based container for PHP and Node.js projects that ensures files created inside the container match your host's UID/GID.
 
-## Introduction
+## Prerequisites
 
-This is meant to be used for PHP and NODE projects development with docker on linux or windows wsl, and can be
-installed inside any distribution.
+- Docker Engine & Docker Compose
+- Git
+- Linux or Windows WSL2
 
-### Install Notes
+## Installation
 
-- clone it
-- assign `projects` (cloned directory) to user and user group (DO NOT USE root).
-- copy `scripts/.env.example` to `scripts/.env` and use `id -u <user>` and `id -g <user>` to populate some of the fields.
-- change other env variables to your needs
-- add or change variables inside `scripts/php/php.ini` and `scripts/php/supervisord.conf` if needed.
-- run `sh scripts/start.sh` to start the project
-- run `sh scripts/stop.sh` to stop the project
-- run `sh scripts/build.sh` to build or rebuild the project
-- run `sh scripts/restart.sh` to restarts container
-- run `sh scripts/console.sh` to exec the container
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ionghitun/projects.git
+   cd projects
+   ```
+2. **Set ownership (avoid root!)**
+   ```bash
+   sudo chown -R $USER:$USER .
+   ```
+3. **Copy and configure environment variables**
+   ```bash
+   cp scripts/.env.example scripts/.env
+   export PUID=$(id -u)
+   export PGID=$(id -g)
+   # Edit other variables in scripts/.env as needed
+   ```
 
-### Additional info
+## Usage
 
-- copy `scripts/run_all.sh.example` to `scripts/run_all.sh` and modify it to your needs, then by running `sh scripts/run_all.sh` you can start all your other projects in one
-  command
-- added laravel installer
-- ANY folders or files created inside container from commands like `laravel new laravel`, `composer create-project` or `npx create-react-app`
-  will be added to `www-data:www-data` user and group inside
-  container, but they will match USER ID and GROUP ID of the user and group that owns project folder.
+```bash
+./scripts/start.sh    # Start the container
+./scripts/down.sh     # Stop the container
+./scripts/build.sh    # Build or rebuild the container
+./scripts/restart.sh  # Restart the container
+./scripts/console.sh  # Open a shell into the container
+```
+
+## Customization
+
+- **PHP Configuration**: Edit `scripts/php/php.ini`
+- **Supervisor**: Edit `scripts/php/supervisord.conf`
+- **Global Run**:
+    1. Copy `scripts/run_all.sh.example` to `scripts/run_all.sh`
+    2. Modify it to include paths to your other project directories
+    3. Execute `./scripts/run_all.sh` to start multiple projects at once
+
+> **Note:** Any files or folders created inside the container (e.g., via `composer create-project` or `npx create-react-app`) will have permissions matching your host UID/GID.
+
+## Troubleshooting
+
+- **Permission Issues**: Ensure `PUID` and `PGID` in `scripts/.env` match your host user IDs.
+- **Docker Issues**: For older versions you might want to remove `COMPOSE_BAKE` from `.env`.
+- **Docker Compose Issues**: Please update and ensure you can use `docker compose`, not old version `docker-compose`
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests following the repository guidelines.
 
 _Happy Coding_

@@ -1,24 +1,28 @@
 #!/bin/sh
-echo "*** Rebuild start ***"
-
 cd scripts || exit
 
-# Prompt user for input
-echo "Want to update images before rebuild? (y/n) [default: y]: "
+echo "Want to update image before rebuilding? (y/n) [default: y]: "
 read UPDATE_IMAGES
 UPDATE_IMAGES=${UPDATE_IMAGES:-y}
 
-# Check user input in a POSIX-compatible way
 if [ "$UPDATE_IMAGES" = "y" ] || [ "$UPDATE_IMAGES" = "Y" ]; then
-    PHP_IMAGE_VERSION=$(grep -oP '^PHP_IMAGE_VERSION=\K.*' .env)
+    echo
+    echo "===== Updating image... ====="
+    echo
 
+    PHP_IMAGE_VERSION=$(grep -oP '^PHP_IMAGE_VERSION=\K.*' .env)
     docker pull "$PHP_IMAGE_VERSION"
 fi
 
-STACK_NAME=$(grep -oP '^STACK_NAME=\K.*' .env)
+COMPOSE_PROJECT_NAME=$(grep -oP '^COMPOSE_PROJECT_NAME=\K.*' .env)
 
-echo "*** Rebuilding application ***"
-docker compose -p "$STACK_NAME" build --no-cache
-docker compose -p "$STACK_NAME" up -d
+echo
+echo "===== Building and starting container... ====="
+echo
 
-echo "*** Rebuild ended ***"
+docker compose build --no-cache
+docker compose up -d
+
+echo
+echo "===== Done! ====="
+echo

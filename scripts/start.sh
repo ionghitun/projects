@@ -1,10 +1,14 @@
 #!/bin/sh
-echo "*** Starting... ***"
+echo
+echo "===== Starting... ====="
+echo
 
 cd scripts || exit
 
-STACK_NAME=$(grep -oP '^STACK_NAME=\K.*' .env)
+COMPOSE_PROJECT_NAME=$(grep -oP '^COMPOSE_PROJECT_NAME=\K.*' .env)
 
-docker compose -p "$STACK_NAME" up -d
+docker compose up -d
 
-echo "*** Started ***"
+echo
+echo "===== Done! ====="
+echo
