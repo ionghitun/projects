@@ -14,8 +14,6 @@ if [ "$UPDATE_IMAGES" = "y" ] || [ "$UPDATE_IMAGES" = "Y" ]; then
     docker pull "$PHP_IMAGE_VERSION"
 fi
 
-COMPOSE_PROJECT_NAME=$(grep -oP '^COMPOSE_PROJECT_NAME=\K.*' .env)
-
 echo
 echo "===== Building and starting container... ====="
 echo

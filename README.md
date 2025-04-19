@@ -22,22 +22,12 @@ A simple Docker-based container for PHP and Node.js projects that ensures files 
 3. **Copy and configure environment variables**
    ```bash
    cp scripts/.env.example scripts/.env
-   export PUID=$(id -u)
-   export PGID=$(id -g)
+   export USER_ID=$(id -u)
+   export GROUP_ID=$(id -g)
    # Edit other variables in scripts/.env as needed
    ```
 
-## Usage
-
-```bash
-./scripts/start.sh    # Start the container
-./scripts/down.sh     # Stop the container
-./scripts/build.sh    # Build or rebuild the container
-./scripts/restart.sh  # Restart the container
-./scripts/console.sh  # Open a shell into the container
-```
-
-## Customization
+## Configuration
 
 - **PHP Configuration**: Edit `scripts/php/php.ini`
 - **Supervisor**: Edit `scripts/php/supervisord.conf`
@@ -48,9 +38,19 @@ A simple Docker-based container for PHP and Node.js projects that ensures files 
 
 > **Note:** Any files or folders created inside the container (e.g., via `composer create-project` or `npx create-react-app`) will have permissions matching your host UID/GID.
 
+## Available scripts
+
+```bash
+./scripts/start.sh    # Start the container
+./scripts/down.sh     # Stop the container
+./scripts/build.sh    # Build or rebuild the container
+./scripts/restart.sh  # Restart the container
+./scripts/console.sh  # Open a shell into the container
+```
+
 ## Troubleshooting
 
-- **Permission Issues**: Ensure `PUID` and `PGID` in `scripts/.env` match your host user IDs.
+- **Permission Issues**: Ensure `USER_ID` and `GROUP_ID` in `scripts/.env` match your host user IDs.
 - **Docker Issues**: For older versions you might want to remove `COMPOSE_BAKE` from `.env`.
 - **Docker Compose Issues**: Please update and ensure you can use `docker compose`, not old version `docker-compose`
 

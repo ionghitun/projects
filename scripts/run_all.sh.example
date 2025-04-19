@@ -2,6 +2,9 @@ echo
 echo "===== Script started ====="
 echo
 
+sh scripts/start.sh
+sh scripts/restart.sh
+
 cd ./nginx-proxy
 sh scripts/start.sh
 sh scripts/restart.sh
