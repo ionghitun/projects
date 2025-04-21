@@ -3,7 +3,8 @@ cd scripts || exit
 
 COMPOSE_PROJECT_NAME=$(grep -oP '^COMPOSE_PROJECT_NAME=\K.*' .env)
 
-echo "Want to execute container as root? (y/n) [default: n]: "
+echo
+echo "Do you want to execute container as root? (y/n) [default: n]: "
 read USE_ROOT
 
 if [ "$USE_ROOT" = "y" ] || [ "$USE_ROOT" = "Y" ]; then
