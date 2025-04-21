@@ -1,5 +1,5 @@
 echo
-echo "===== Script started ====="
+echo "===== Script starting... ====="
 echo
 
 sh scripts/start.sh
@@ -22,5 +22,5 @@ sh scripts/start.sh
 sh scripts/restart.sh
 
 echo
-echo "===== Done! ====="
+echo "===== Script finished! ====="
 echo
