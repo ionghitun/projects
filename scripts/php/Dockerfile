@@ -21,7 +21,9 @@ RUN set -eux; \
         useradd -m -u "$USER_ID" -g "$GROUP_ID" -s /bin/bash "$APP_USER"; \
     fi; \
     mkdir -p /home/"$APP_USER" /var/log/supervisor /var/run /app; \
-    chown -R "$APP_USER:$GROUP_ID" /home/"$APP_USER" /var/log/supervisor /var/run /app
+    chown -R "$APP_USER:$GROUP_ID" /home/"$APP_USER" /var/log/supervisor /var/run /app; \
+    touch /var/run/supervisord.pid /var/run/crond.pid; \
+    chown "$APP_USER:$GROUP_ID" /var/run/supervisord.pid /var/run/crond.pidgi
 
 RUN apt-get update \
     && apt-get upgrade -y \
