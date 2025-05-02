@@ -10,9 +10,10 @@ services:
                 PHP_IMAGE_VERSION: ${PHP_IMAGE_VERSION}
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
+                APP_USER: ${APP_USER}
                 NODE_VERSION: ${NODE_VERSION}
         volumes:
-            - ../:/var/www
+            - ../:/app
             - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         tmpfs:

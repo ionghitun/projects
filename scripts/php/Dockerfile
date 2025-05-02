@@ -5,45 +5,43 @@ USER root
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
+ARG APP_USER=appuser
+ARG NODE_VERSION=22
 
-RUN userdel -f www-data \
-    && getent group www-data && groupdel www-data || true \
-    && groupadd -g ${GROUP_ID} www-data \
-    && useradd -l -u ${USER_ID} -g www-data www-data \
-    && install -d -m 0755 -o www-data -g www-data /home/www-data \
-    && mkdir /var/log/supervisor \
-    && touch /var/run/supervisord.pid \
-    && chown -R www-data:www-data /home/www-data /var/log/supervisor /var/run /var/www
+RUN set -eux; \
+    EXISTING_USER=$(getent passwd "$USER_ID" | cut -d: -f1 || true); \
+    EXISTING_GROUP=$(getent group "$GROUP_ID" | cut -d: -f1 || true); \
+    if [ -n "$EXISTING_USER" ]; then \
+        echo "User with UID $USER_ID already exists: $EXISTING_USER. Renaming to $APP_USER."; \
+        usermod -l "$APP_USER" "$EXISTING_USER" || true; \
+    else \
+        if [ -z "$EXISTING_GROUP" ]; then \
+            groupadd -g "$GROUP_ID" "$APP_USER"; \
+        fi; \
+        useradd -m -u "$USER_ID" -g "$GROUP_ID" -s /bin/bash "$APP_USER"; \
+    fi; \
+    mkdir -p /home/"$APP_USER" /var/log/supervisor /var/run /app; \
+    chown -R "$APP_USER:$GROUP_ID" /home/"$APP_USER" /var/log/supervisor /var/run /app
 
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
-             supervisor \
-             git \
-             zip \
-             unzip \
-             nano \
-             curl \
-        && rm -rf /var/lib/apt/lists/* \
-    && pecl update-channels \
-    && export EDITOR="/usr/bin/nano"
+        supervisor git zip unzip nano curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && pecl update-channels
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-ARG NODE_VERSION=22
-RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh \
-    && chmod 500 nsolid_setup_deb.sh \
-    && ./nsolid_setup_deb.sh ${NODE_VERSION} \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && apt-get install -y nodejs \
     && npm update -g
 
-RUN python3 -c "import socket as s; sock = s.socket(s.AF_UNIX); sock.bind('/dev/shm/supervisor.sock')"
+USER ${APP_USER}
 
-USER www-data
+ENV COMPOSER_HOME="/home/${APP_USER}/.composer"
+ENV PATH="$COMPOSER_HOME/vendor/bin:$PATH"
 
 RUN composer global require laravel/installer
-RUN echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
+
+WORKDIR /app
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
-WORKDIR /var/www
