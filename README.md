@@ -48,6 +48,11 @@ A simple Docker-based container for PHP and Node.js projects that ensures files 
 ./scripts/console.sh  # Open a shell into the container
 ```
 
+## Configure everything at once, including my other repos
+
+- run `sh scripts/configure.sh`
+
+
 ## Troubleshooting
 
 - **Permission Issues**: Ensure `USER_ID` and `GROUP_ID` in `scripts/.env` match your host user IDs.

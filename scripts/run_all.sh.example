@@ -17,6 +17,18 @@ cd ../mailpit
 sh scripts/start.sh
 sh scripts/restart.sh
 
+cd ../docker-mysql
+sh scripts/start.sh
+sh scripts/restart.sh
+
+cd ../docker-mongo
+sh scripts/start.sh
+sh scripts/restart.sh
+
+cd ../docker-redis
+sh scripts/start.sh
+sh scripts/restart.sh
+
 cd ../portainer
 sh scripts/start.sh
 sh scripts/restart.sh
