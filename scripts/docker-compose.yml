@@ -1,5 +1,6 @@
 services:
     projects:
+        network_mode: "host"
         container_name: ${COMPOSE_PROJECT_NAME}
         user: ${USER_ID}:${GROUP_ID}
         restart: unless-stopped
