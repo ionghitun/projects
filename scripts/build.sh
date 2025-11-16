@@ -11,7 +11,7 @@ if [ "$UPDATE_IMAGES" = "y" ] || [ "$UPDATE_IMAGES" = "Y" ]; then
     echo "===== Updating image... ====="
     echo
 
-    PHP_IMAGE_VERSION=$(sed -n 's/^PHP_IMAGE_VERSION=//p' .env)
+    PHP_IMAGE_VERSION=$(sed -n 's/^PHP_IMAGE_VERSION=//p' .env | tr -d '\r' | tr -d '"')
     docker pull "$PHP_IMAGE_VERSION"
 fi
 

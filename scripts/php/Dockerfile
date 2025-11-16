@@ -6,7 +6,7 @@ USER root
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 ARG APP_USER=appuser
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
 
 RUN set -eux; \
     EXISTING_USER=$(getent passwd "$USER_ID" | cut -d: -f1 || true); \

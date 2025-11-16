@@ -1,7 +1,7 @@
 #!/bin/sh
 cd scripts || exit
 
-COMPOSE_PROJECT_NAME=$(sed -n 's/^COMPOSE_PROJECT_NAME=//p' .env)
+COMPOSE_PROJECT_NAME=$(sed -n 's/^COMPOSE_PROJECT_NAME=//p' .env | tr -d '\r' | tr -d '"')
 
 echo
 printf "Do you want to execute container as root? (y/n) [default: n]: "

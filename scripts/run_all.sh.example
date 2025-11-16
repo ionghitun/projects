@@ -5,7 +5,7 @@ echo
 sh scripts/start.sh
 sh scripts/restart.sh
 
-cd ./nginx-proxy
+cd ./tools/nginx-proxy || exit
 sh scripts/start.sh
 sh scripts/restart.sh
 

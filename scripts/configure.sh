@@ -13,49 +13,52 @@ if [ "$CONFIGURE_STACK" = "y" ] || [ "$CONFIGURE_STACK" = "Y" ]; then
     cp scripts/.env.example scripts/.env
     sh scripts/start.sh
 
+    mkdir tools
+    cd tools || exit
+
     git clone https://github.com/ionghitun/nginx-proxy.git
     cp nginx-proxy/scripts/.env.example nginx-proxy/scripts/.env
-    cd nginx-proxy
+    cd nginx-proxy || exit
     docker network create nginx-proxy
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/minio.git
     cp minio/scripts/.env.example minio/scripts/.env
-    cd minio
+    cd minio || exit
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/mailpit.git
     cp mailpit/scripts/.env.example mailpit/scripts/.env
-    cd mailpit
+    cd mailpit || exit
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/docker-mysql.git
     cp docker-mysql/scripts/.env.example docker-mysql/scripts/.env
-    cd docker-mysql
+    cd docker-mysql || exit
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/docker-mongo.git
     cp docker-mongo/scripts/.env.example docker-mongo/scripts/.env
-    cd docker-mongo
+    cd docker-mongo || exit
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/docker-redis.git
     cp docker-redis/scripts/.env.example docker-redis/scripts/.env
-    cd docker-redis
+    cd docker-redis || exit
     sh scripts/start.sh
 
     cd ../
     git clone https://github.com/ionghitun/portainer.git
     cp portainer/scripts/.env.example portainer/scripts/.env
-    cd portainer
+    cd portainer || exit
     sh scripts/start.sh
 
-    cd ..
+    cd ../.. || exit
     cp scripts/run_all.sh.example scripts/run_all.sh
 
     echo
