@@ -18,6 +18,6 @@ services:
             - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         tmpfs:
-            - /dev/shm
+            - /dev/shm:size=256m,uid=${USER_ID},gid=${GROUP_ID},mode=1777
         extra_hosts:
             - "host.docker.internal:host-gateway"

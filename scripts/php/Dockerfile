@@ -8,6 +8,18 @@ ARG GROUP_ID=1000
 ARG APP_USER=appuser
 ARG NODE_VERSION=24
 
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends \
+        supervisor git zip unzip nano curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && pecl update-channels
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    && apt-get install -y nodejs \
+    && npm update -g
+
 RUN set -eux; \
     EXISTING_USER=$(getent passwd "$USER_ID" | cut -d: -f1 || true); \
     EXISTING_GROUP=$(getent group "$GROUP_ID" | cut -d: -f1 || true); \
@@ -20,22 +32,10 @@ RUN set -eux; \
         fi; \
         useradd -m -u "$USER_ID" -g "$GROUP_ID" -s /bin/bash "$APP_USER"; \
     fi; \
-    mkdir -p /home/"$APP_USER" /var/log/supervisor /var/run /app; \
-    chown -R "$APP_USER:$GROUP_ID" /home/"$APP_USER" /var/log/supervisor /var/run /app; \
-    touch /var/run/supervisord.pid; \
-    chown "$APP_USER:$GROUP_ID" /var/run/supervisord.pid
-
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        supervisor git zip unzip nano curl ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl update-channels
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
-    && apt-get install -y nodejs \
-    && npm update -g
+    mkdir -p /home/"$APP_USER" /var/log/supervisor /var/run/supervisor /app; \
+    chown -R "$APP_USER:$GROUP_ID" /home/"$APP_USER" /var/log/supervisor /var/run/supervisor /app; \
+    touch /var/run/supervisor/supervisord.pid; \
+    chown "$APP_USER:$GROUP_ID" /var/run/supervisor/supervisord.pid
 
 USER ${APP_USER}
 
